@@ -1,0 +1,22 @@
+import RPi.GPIO as GPIO
+import time
+
+OUT_PIN = 17
+IN_PIN = 27
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(OUT_PIN, GPIO.OUT)
+GPIO.setup(IN_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
+try:
+    while True:
+        GPIO.output(OUT_PIN, GPIO.HIGH)
+        time.sleep(0.1)
+        print("Read IN_PIN:", GPIO.input(IN_PIN))  # Should be HIGH
+        GPIO.output(OUT_PIN, GPIO.LOW)
+        time.sleep(0.1)
+        print("Read IN_PIN:", GPIO.input(IN_PIN))  # Should be LOW
+except KeyboardInterrupt:
+    pass
+finally:
+    GPIO.cleanup()
